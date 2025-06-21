@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Minecraft</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+      background-color: #87CEEB; /* Sky blue */
+    }
+    #game {
+      display: grid;
+      grid-template-columns: repeat(20, 32px);
+      grid-template-rows: repeat(15, 32px);
+      gap: 1px;
+      width: fit-content;
+      margin: 20px auto;
+      background-color: #555;
+    }
+    .block {
+      width: 32px;
+      height: 32px;
+      background-color: #eee;
+    }
+    .dirt { background-color: #8B4513; }
+    .grass { background-color: #228B22; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Mini Minecraft - Click to place or remove dirt</h2>
+  <div id="game"></div>
+
+  <script>
+    const rows = 15;
+    const cols = 20;
+    const game = document.getElementById("game");
+
+    // Initialize the grid
+    for (let i = 0; i < rows * cols; i++) {
+      const block = document.createElement("div");
+      block.classList.add("block");
+      game.appendChild(block);
+
+      block.addEventListener("click", () => {
+        // Toggle dirt block
+        if (block.classList.contains("dirt")) {
+          block.classList.remove("dirt");
+        } else {
+          block.classList.add("dirt");
+        }
+      });
+    }
+
+    // Add ground layer
+    const groundStart = cols * (rows - 3);
+    const blocks = document.querySelectorAll(".block");
+    for (let i = groundStart; i < blocks.length; i++) {
+      blocks[i].classList.add("dirt");
+    }
+    for (let i = cols * (rows - 3); i < cols * (rows - 4); i++) {
+      blocks[i].classList.add("grass");
+    }
+  </script>
+</body>
+</html>
